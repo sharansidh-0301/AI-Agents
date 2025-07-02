@@ -1,0 +1,150 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -340,
+        -60
+      ],
+      "id": "c3ac0aee-8357-4bde-8daf-e18745338735",
+      "name": "When chat message received",
+      "webhookId": "1c52ad52-db26-447d-a704-602fb06e87bc"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an helpfull assistant."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        -60
+      ],
+      "id": "4f676f53-7891-4860-92b4-6e5607331696",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        140
+      ],
+      "id": "4d35167c-17af-4e10-a07d-fda30eb3e311",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "W1U9oYQNDYn062nx",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -80,
+        140
+      ],
+      "id": "e2e000a9-bdf2-418a-b8ef-8d26268bb6a0",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        140,
+        140
+      ],
+      "id": "8a186f31-c2bf-426e-9ef3-4aaf80fb379e",
+      "name": "Get many messages in Gmail",
+      "webhookId": "bff88285-bc98-41b3-a8b1-a3b5b0ea5998",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9kO96MeyXJ0tWXIe",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "05b0df29-7ce5-4ee4-a1d9-233231196acb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b07efdb0020a508e89b60688f513a084d8312a62c371b1ec34ccda87340c7d30"
+  },
+  "id": "kHv94amf1kJ2WmF5",
+  "tags": []
+}
