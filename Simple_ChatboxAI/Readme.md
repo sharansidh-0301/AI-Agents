@@ -1,4 +1,4 @@
-# 🤖 Simple Chatbox AI (n8n Workflow)
+# 🤖 Simple GMail Assistant (n8n Workflow)
 
 This project is a smart AI-powered chat agent built using **n8n**. It integrates with **Google Gemini (PaLM)**, **Gmail**, and **window buffer memory** to create an interactive chat experience.
 
